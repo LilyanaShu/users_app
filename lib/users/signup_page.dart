@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:users_app/utils/get_color.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -9,44 +11,67 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   var gender = 'male';
+  late String _selecteddate = '';
+  final _formKey = GlobalKey<FormState>();
+
+  void _selectDate(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now().subtract(const Duration(days: 4745)),
+      firstDate: DateTime(1945),
+      lastDate: DateTime(2014),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: GetColor.primarySeedColor,
+              onPrimary: GetColor.whiteTextColor,
+              onSurface: GetColor.primarySeedColor,
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                backgroundColor: GetColor.primarySeedColor, // button text color
+                foregroundColor: GetColor.whiteTextColor,
+              ),),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if(selected != null && selected.toString() != _selecteddate) {
+      setState(() {
+        _selecteddate = DateFormat("dd-MM-yyyy").format(selected);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        padding: EdgeInsets.all(40),
+        padding: const EdgeInsets.all(40),
         children: [
-          Stack(
-            children: [
-              Image.asset("assets/images/hello.jpeg",),
-
-              //Icon(Icons.person_rounded, size: 100, color: Colors.blueAccent,),
-            ],
-          ),
-
-          SizedBox(height: 20,),
+          Image.asset("assets/images/hello.jpeg",),
+          const SizedBox(height: 20,),
           Form(
+            key: _formKey,
               child: Column(
                 children: [
                   TextFormField(
                     // The validator receives the text that the user has entered.
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please entry your email address';
+                        return 'Please entry your name';
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.person, color: Colors.blueAccent,),
-                      label: Text("Your Name"),
-                      labelStyle: TextStyle(fontSize: 16, color: Colors.blueAccent),
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.person, ),
+                      label: Text("Name"),
+                    ),
 
-                    ),
-                    style: TextStyle(
-                        color: Colors.black
-                    ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   TextFormField(
                     // The validator receives the text that the user has entered.
                     validator: (value) {
@@ -55,41 +80,35 @@ class _SignUpPageState extends State<SignUpPage> {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.email, color: Colors.blueAccent,),
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.email, ),
                       label: Text("Email address"),
-                      labelStyle: TextStyle(fontSize: 16, color: Colors.blueAccent),
+                    ),
 
-                    ),
-                    style: TextStyle(
-                        color: Colors.black
-                    ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   TextFormField(
                     obscureText: true,
                     // The validator receives the text that the user has entered.
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please entry your email address';
+                        return 'Please entry your password';
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.lock, color: Colors.blueAccent,),
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.lock, ),
                       label: Text("Password"),
-                      labelStyle: TextStyle(fontSize: 16, color: Colors.blueAccent),
-
                     ),
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
 
                   Row(
                     children: [
-                      Icon(Icons.person_pin_sharp, color: Colors.blueAccent,),
+                      const Icon(Icons.person_pin_sharp, ),
                       Radio(value: 'male', groupValue: gender,
                           onChanged: (String? val){
                             setState(() {
@@ -98,8 +117,8 @@ class _SignUpPageState extends State<SignUpPage> {
                               }
                             });
                           }),
-                      Text("Male"),
-                      SizedBox(width: 30,),
+                      const Text("Male"),
+                      const SizedBox(width: 30,),
                       Radio(value: 'female', groupValue: gender,
                           onChanged: (String? val){
                             setState(() {
@@ -108,27 +127,31 @@ class _SignUpPageState extends State<SignUpPage> {
                               }
                             });
                           }),
-                      Text("Female"),
+                      const Text("Female"),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
+
                   Row(
                     children: [
-                      Icon(Icons.calendar_month_rounded, color: Colors.blueAccent,),
-                      SizedBox(width: 15,),
-                      ElevatedButton(onPressed: (){}, child:
-                      Text("Select your  birth date"),
-                      style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.lightBlueAccent)),
-                      )
+                      const Icon(Icons.calendar_month_rounded, ),
+                      const SizedBox(width: 15,),
+                      OutlinedButton(
+                        onPressed: () => _selectDate(context),
+                        //statesController: ,
+                        child: Text(_selecteddate.length>1?_selecteddate : 'Birthdate',),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
 
                 ],
               )
           ),
-          ElevatedButton(onPressed: (){}, child:
-          Text("Sign Up"),
+          ElevatedButton(onPressed: (){
+            _formKey.currentState!.validate();
+          }, child:
+          const Text("Sign Up"),
 
           )
         ],
