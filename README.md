@@ -1,16 +1,13 @@
 # users_app
 
-A new Flutter project.
+Simple project with 3 screens. Welcome screen, sign in and sign up.
 
-## Getting Started
+In this project, I practice how to use route, gesture, navigator, showdatepicker and form validation.
 
-This project is a starting point for a Flutter application.
+![image](https://github.com/LilyanaShu/users_app/assets/132737700/e6bfd624-653c-4fdd-8377-2b442aa8e3f5)
 
-A few resources to get you started if this is your first Flutter project:
+![image](https://github.com/LilyanaShu/users_app/assets/132737700/f452c642-1618-4fc3-ace3-c8f59b35e685)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![image](https://github.com/LilyanaShu/users_app/assets/132737700/c923dc25-e399-4381-9668-87b9106e3224)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![image](https://github.com/LilyanaShu/users_app/assets/132737700/3a259f00-e937-4ca2-a9cb-cf2918ad1ad2)
