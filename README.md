@@ -2,7 +2,7 @@
 
 Simple project with 3 screens. Welcome screen, sign in and sign up.
 
-In this project, I practice how to use route, gesture, navigator, showdatepicker and form validation.
+In this project, I practice how to use route, gesture, navigator, showdatepicker, date formating and form validation.
 
 <img width="322" alt="image" src="https://github.com/LilyanaShu/users_app/assets/132737700/095f7340-2458-4e7d-9648-07a65cc7f643">
 <img width="322" alt="image" src="https://github.com/LilyanaShu/users_app/assets/132737700/7b93ebf3-bd29-4dea-a00c-af73864a820e">
